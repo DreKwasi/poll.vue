@@ -54,20 +54,6 @@ const animatingResults = ref(false)
 const error = ref(null)
 let animationInterval = null
 
-// Computed property to find the leading option(s)
-const leadingOptionIds = computed(() => {
-  if (!hasVoted.value) return []
-
-  // Find the maximum vote count
-  const maxVotes = Math.max(...options.value.map((option) => option.votes))
-
-  // If no votes yet, return empty array
-  if (maxVotes <= 0) return []
-
-  // Return IDs of all options with the maximum vote count (could be a tie)
-  return options.value.filter((option) => option.votes === maxVotes).map((option) => option.id)
-})
-
 // Generate random votes for initial/refresh scenario
 const generateRandomVotes = () => {
   try {
@@ -406,26 +392,12 @@ onMounted(() => {
               <CheckIcon v-if="option.checked" class="w-3 h-3" />
             </div>
             <span class="font-medium mr-1">{{ option.text }}</span>
-            <!-- Trophy - only shown for options with the most votes (could be multiple in case of ties) -->
-            <img
-              v-if="hasVoted && leadingOptionIds.includes(option.id)"
-              src="/trophy.svg"
-              alt="Most voted"
-              class="w-4 h-4 transition-opacity duration-700"
-              :class="{ 'opacity-0': animatingResults, 'opacity-100': !animatingResults }"
-            />
           </div>
 
           <!-- Only show animated counts after voting -->
-          <div v-if="hasVoted" class="flex flex-col items-end space-y-1">
-            <div class="flex items-center text-gray-500 space-x-1">
-              <span class="text-xs min-w-[20px] text-right">{{ option.displayVotes }}</span>
-              <Users class="w-3" />
-            </div>
-            <span class="text-gray-700 text-sm font-medium min-w-[40px] text-right">
-              {{ option.displayPercentage.toFixed(1) }}%
-            </span>
-          </div>
+          <span v-if="hasVoted" class="text-sm font-medium min-w-[40px] text-right">
+            {{ option.displayPercentage.toFixed(1) }}%
+          </span>
         </div>
 
         <!-- The bar element - initially empty, fills after voting -->
