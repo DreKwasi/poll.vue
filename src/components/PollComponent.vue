@@ -242,8 +242,8 @@ const animateNumbers = () => {
   })
 
   // Determine animation duration
-  const duration = 1000 // 1.2 seconds total
-  const steps = 200 // Number of steps
+  const duration = 300 // 1.2 seconds total
+  const steps = 30 // Number of steps
   const interval = duration / steps
 
   let currentStep = 0
