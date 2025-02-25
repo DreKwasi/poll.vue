@@ -1,19 +1,13 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import PollComponent from './components/PollComponent.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="absolute w-full min-h-[100svh] bg-gray-100 font-sans">
+    <main class="flex flex-col h-[90vh] justify-center px-2">
+      <PollComponent />
+    </main>
+  </div>
 </template>
 
 <style scoped></style>
